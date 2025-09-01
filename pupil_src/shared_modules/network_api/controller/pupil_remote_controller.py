@@ -299,6 +299,12 @@ class PupilRemoteController(Observable):
             response = repr(self.g_pool.get_timestamp())
         elif msg[0] == "v":
             response = f"{self.g_pool.version}"
+        elif msg == 'D':
+            ipc_pub.notify({"subject", "validation.should_start"})
+            response = "OK"
+        elif msg == 'd':
+            ipc_pub.notify({"subject", "validation.should_stop"})
+            response = "OK"
         else:
             response = "Unknown command."
         remote.send_string(response)

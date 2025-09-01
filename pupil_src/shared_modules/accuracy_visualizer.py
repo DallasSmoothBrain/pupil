@@ -408,6 +408,14 @@ class Accuracy_Visualizer(Plugin):
         else:
             self.precision = results.precision
             logger.info(f"Angular precision: {results.precision.result:.3f} degrees")
+            
+        notification = {
+            "subject": "accuracy_visualizer.accuracy_results", 
+            "accuracy": str(results.accuracy.result),
+            'precision': str(results.precision.result),
+        }
+        self.notify_all(notification=notification)
+        logger.info('notified')
 
         self.error_lines = results.error_lines
         ref_locations = results.correlation.norm_space[1::2, :]
