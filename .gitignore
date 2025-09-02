@@ -20,7 +20,8 @@ Thumbs.db
 # user generated settings files will also be ignored #
 recordings/
 recordings
-capture_settings/
+capture_settings/plugins/pylsl
+capture_settings/plugins/archive
 service_settings/
 player_settings/
 settings/
@@ -59,3 +60,15 @@ win_drv
 # pyenv local config
 .python-version
 *.exe
+
+capture_settings/prerecorded_calibration_result
+
+capture_settings/prerecorded_calibration_setup
+
+capture_settings/surface_definitions_v01
+
+capture_settings/user_settings_eye0
+
+capture_settings/user_settings_eye1
+
+capture_settings/user_settings_world
