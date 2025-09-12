@@ -14,6 +14,8 @@ import traceback
 import typing as T
 
 import av
+from av.audio import resampler
+from av import error
 import numpy as np
 import pupil_recording
 
@@ -73,7 +75,7 @@ def _load_audio_single(file_path, return_pts_based_timestamps=False):
         container = av.open(str(file_path))
         stream = next(iter(container.streams.audio))
         logger.debug(f"Loaded audiostream: {stream} from {file_path}")
-    except (av.AVError, StopIteration):
+    except (StopIteration):
         return None
 
     ts_path = file_path.with_name(file_path.stem + "_timestamps.npy")
@@ -97,8 +99,8 @@ def _load_audio_single(file_path, return_pts_based_timestamps=False):
 
     try:
         container.seek(0)
-    except av.AVError as err:
-        logger.debug(f"{err}")
+    except:
+        # logger.debug(f"{err}")
         return None
 
     return LoadedAudio(container, stream, timestamps, packet_pts)
@@ -124,7 +126,7 @@ class Audio_Viz_Transform:
         logger.debug(
             f"Audio_Viz_Transform._setup_next_audio_part: Part {self.audio.container} {self.audio.stream}"
         )
-        self.audio_resampler = av.audio.resampler.AudioResampler(
+        self.audio_resampler = resampler.AudioResampler(
             format=self.audio.stream.format, layout=self.audio.stream.layout, rate=60
         )
         logger.debug(
@@ -139,7 +141,7 @@ class Audio_Viz_Transform:
                 for frame in packet.decode():
                     if frame:
                         yield frame
-            except av.AVError:
+            except:
                 logger.debug(traceback.format_exc())
 
     def sec_to_frames(self, sec):
@@ -159,7 +161,7 @@ class Audio_Viz_Transform:
                 audio_frame.pts = None
                 try:
                     audio_frames_rs = self.audio_resampler.resample(audio_frame)
-                except av.error.ValueError:
+                except error.ValueError:
                     continue
                 if not audio_frames_rs:
                     continue
