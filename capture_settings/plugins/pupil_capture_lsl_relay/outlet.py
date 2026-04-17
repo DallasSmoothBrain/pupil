@@ -77,10 +77,10 @@ class Outlet(abc.ABC):
             return
         # push_chunk might be more efficient but does not
         # allow to set explicit timstamps for all samples
-        self._wrapped_outlet.push_sample(channel_data, sample["timestamp"])
+        self._wrapped_outlet.push_sample(channel_data, float(sample["timestamp"]))
 
     def extract_channel_data(self, sample):
-        return [chan.query(sample) for chan in self.channels]
+        return [float(chan.query(sample)) for chan in self.channels]
 
     def construct_streaminfo(self) -> lsl.StreamInfo:
         stream_info = lsl.StreamInfo(

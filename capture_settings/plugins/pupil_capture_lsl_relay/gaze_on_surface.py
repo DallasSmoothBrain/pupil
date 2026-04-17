@@ -13,8 +13,6 @@ from .channel import (
     gaze_on_surface_norm_pos_channels,
     gaze_on_surface_on_surf_channel,
     gaze_on_surface_timestamp_channel,
-    gaze_on_surface_name_channel,
-    gaze_on_surface_uid_channel,
 )
 from .outlet import Outlet
 
@@ -34,6 +32,4 @@ class GazeOnSurface(Outlet):
             *gaze_on_surface_norm_pos_channels(),
             gaze_on_surface_on_surf_channel(),
             gaze_on_surface_timestamp_channel(),
-            gaze_on_surface_name_channel(),
-            gaze_on_surface_uid_channel(),
         )
