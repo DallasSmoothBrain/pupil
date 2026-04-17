@@ -15,7 +15,6 @@ from uuid import uuid4 as generate_uuid
 import pylsl as lsl
 
 from .channel import Channel
-from .gaze_on_surface import GazeOnSurface
 from .version import VERSION
 
 logger = logging.getLogger(__name__)
@@ -45,9 +44,6 @@ class Outlet(abc.ABC):
     def __init_subclass__(cls, **kwargs) -> None:
         super().__init_subclass__(**kwargs)
         cls._name_to_type_mapping[cls.type_name()] = cls
-        if cls.type_name() == "SceneCameraGaze":
-            # Manually add GazeOnSurface to the mapping
-            cls._name_to_type_mapping["GazeOnSurface"] = GazeOnSurface
 
     @classmethod
     def type_name(cls) -> str:
