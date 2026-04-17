@@ -16,10 +16,9 @@ from .channel import (
     gaze_normal_channels,
     gaze_point_3d_channels,
     norm_pos_channels,
-    surface_name,
-    img_to_surf_trans,
 )
 from .outlet import Outlet
+from .gaze_on_surface import GazeOnSurface
 
 
 class SceneCameraGaze(Outlet):
@@ -42,18 +41,3 @@ class SceneCameraGaze(Outlet):
             *diameter_3d_channels(),
         )
 
-class SceneCameraSurface(Outlet):
-    @property
-    def name(self) -> str:
-        return 'pupil_capture_surface'
-    
-    @property
-    def event_key(self) -> str:
-        return "surfaces"
-    
-    def setup_channels(self):
-        return (
-            # surface_name(),
-            *img_to_surf_trans(),
-            # *gaze_on_surf(),
-        )

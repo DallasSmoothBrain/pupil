@@ -326,13 +326,89 @@ def extract_method(fixation):
 #         for i in range(2)
 #     ]
 
-def surface_name():
+def gaze_on_surface_norm_pos_channels():
+    return [
+        Channel(
+            query=make_extract_gaze_on_surface_norm_pos(i),
+            label="gaze_on_surface_norm_pos_" + "xy"[i],
+            eye="both",
+            metatype="SurfaceXY"[i],
+            unit="normalized",
+            coordinate_system="surface",
+        )
+        for i in range(2)
+    ]
+
+
+def gaze_on_surface_confidence_channel():
     return Channel(
-        query=surface_name_q,
-        label='surface_name',
-        eye='both',
-        metatype='surface_name',
+        query=extract_gaze_on_surface_confidence,
+        label="gaze_on_surface_confidence",
+        eye="both",
+        metatype="Confidence",
+        unit="normalized",
     )
+
+
+def gaze_on_surface_on_surf_channel():
+    return Channel(
+        query=extract_gaze_on_surface_on_surf,
+        label="gaze_on_surface_on_surf",
+        eye="both",
+        metatype="OnSurface",
+        unit="boolean",
+    )
+
+
+def gaze_on_surface_timestamp_channel():
+    return Channel(
+        query=extract_gaze_on_surface_timestamp,
+        label="gaze_on_surface_timestamp",
+        eye="both",
+        metatype="Timestamp",
+        unit="seconds",
+    )
+
+
+def gaze_on_surface_name_channel():
+    return Channel(
+        query=extract_gaze_on_surface_name,
+        label="gaze_on_surface_name",
+        eye="both",
+        metatype="SurfaceName",
+    )
+
+
+def gaze_on_surface_uid_channel():
+    return Channel(
+        query=extract_gaze_on_surface_uid,
+        label="gaze_on_surface_uid",
+        eye="both",
+        metatype="SurfaceUID",
+    )
+
+def extract_gaze_on_surface_confidence(gaze_on_surface_datum):
+    return gaze_on_surface_datum["confidence"]
+
+
+def make_extract_gaze_on_surface_norm_pos(dim):
+    return lambda gaze_on_surface_datum: gaze_on_surface_datum["norm_pos"][dim]
+
+
+def extract_gaze_on_surface_on_surf(gaze_on_surface_datum):
+    return float(gaze_on_surface_datum["on_surf"])
+
+
+def extract_gaze_on_surface_timestamp(gaze_on_surface_datum):
+    return gaze_on_surface_datum["timestamp"]
+
+
+def extract_gaze_on_surface_name(gaze_on_surface_datum):
+    return gaze_on_surface_datum["surface_name"]
+
+
+def extract_gaze_on_surface_uid(gaze_on_surface_datum):
+    return gaze_on_surface_datum["surface_uid"]
 
 def img_to_surf_trans():
     

@@ -266,6 +266,8 @@ class Surface(abc.ABC):
                 "on_surf": on_srf,
                 "base_data": (event["topic"], event["timestamp"]),
                 "timestamp": event["timestamp"],
+                "surface_name": self.name,
+                "surface_uid": str(self._uid),
             }
             if event["topic"] == "fixations":
                 mapped_datum["id"] = event["id"]

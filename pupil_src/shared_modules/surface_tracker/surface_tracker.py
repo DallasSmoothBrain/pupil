@@ -429,7 +429,19 @@ class Surface_Tracker(Plugin, metaclass=ABCMeta):
         self._update_markers(frame)
         self._update_surface_locations(frame.index)
         self._update_surface_corners()
-        events["surfaces"] = self._create_surface_events(events, frame.timestamp)
+        surface_events = self._create_surface_events(events, frame.timestamp)
+        events["surfaces"] = surface_events
+
+        gaze_on_surface = []
+        fixations_on_surface = []
+        for s_event in surface_events:
+            gaze_on_surface.extend(s_event["gaze_on_surfaces"])
+            fixations_on_surface.extend(s_event["fixations_on_surfaces"])
+
+        if gaze_on_surface:
+            events["gaze_on_surface"] = gaze_on_surface
+        if fixations_on_surface:
+            events["fixations_on_surface"] = fixations_on_surface
 
     @abstractmethod
     def _update_markers(self, frame):
