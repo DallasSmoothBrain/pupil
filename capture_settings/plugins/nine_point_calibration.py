@@ -11,7 +11,7 @@ class NinePointScreenMarkerChoreography(ScreenMarkerChoreographyPlugin):
 
     @staticmethod
     def get_list_of_markers_to_show(mode: ChoreographyMode) -> list:
-        if ChoreographyMode.CALIBRATION == mode:
+        if ChoreographyMode.VALIDATION == mode:
             return [
                 (0.5, 0.5),
                 (0.0, 1.0),
@@ -23,7 +23,7 @@ class NinePointScreenMarkerChoreography(ScreenMarkerChoreographyPlugin):
                 (0.0, 0.0),
                 (0.0, 0.5),
             ]
-        if ChoreographyMode.VALIDATION == mode:
+        if ChoreographyMode.CALIBRATION == mode:
             return [
                 (0.25, 0.5),
                 (0.5, 0.75),
