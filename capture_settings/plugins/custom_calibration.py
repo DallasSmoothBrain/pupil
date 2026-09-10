@@ -33,6 +33,6 @@ class CustomScreenMarkerChoreography(ScreenMarkerChoreographyPlugin):
         # apply a random rotation to the points
         angle = np.random.uniform(0, 2 * np.pi)
         rotation_matrix = np.array([[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]])
-        points = rotation_matrix @ points
+        points = points @ rotation_matrix.T
 
         return points
