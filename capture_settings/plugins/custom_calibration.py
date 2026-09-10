@@ -35,4 +35,4 @@ class CustomScreenMarkerChoreography(ScreenMarkerChoreographyPlugin):
         rotation_matrix = np.array([[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]])
         points = points @ rotation_matrix.T
 
-        return points
+        return [(point[0], [point[1]]) for point in points]
