@@ -31,8 +31,10 @@ class CustomScreenMarkerChoreography(ScreenMarkerChoreographyPlugin):
         np.random.shuffle(points)
 
         # # apply a random rotation to the points
-        # angle = np.random.uniform(0, 2 * np.pi)
-        # rotation_matrix = np.array([[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]])
-        # points = points @ rotation_matrix.T
+        angle = np.random.uniform(0, 2 * np.pi)
+        rotation_matrix = np.array([[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]])
+        points = points - 0.5  # center the points around (0, 0)
+        points = points @ rotation_matrix.T # rotate
+        points = points + 0.5  # move the points back to the original position
 
         return [(point[0], point[1]) for point in points]
